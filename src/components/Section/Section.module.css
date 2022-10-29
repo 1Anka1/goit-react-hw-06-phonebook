@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+ul,
+ol {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    /* list-style: none; */
+}
+.section {
+    width: 1024px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    border: 1px solid #000;
+}
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.section h1{
+text-align: center;
+}

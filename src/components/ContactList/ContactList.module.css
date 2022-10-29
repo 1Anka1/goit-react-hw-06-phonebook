@@ -1,0 +1,12 @@
+.remoteBtn {
+    height: 20px;
+	background-color: #bc2f2f;
+	color: white;
+	margin: 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.remoteBtn:hover{
+        background-color: #b15757;
+}
