@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
+
+//REDUX
+import { getContacts, getFilter } from 'redux/selectors';
+import { addContact, removeContact, filtredContacts} from 'redux/actions';
 
 //COMPONENTS
 import Section from 'components/Section';
@@ -8,53 +11,49 @@ import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() => {
-    const contacts = JSON.parse(localStorage.getItem('contacts'));
-    return contacts ?? [];
-  });
 
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts])
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
   
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem('contacts');
-    };
-  }, []);
 
-  const addContact = contact => {
-    if (isDublicate(contact)) {
-      return alert(`${contact.name} - is already in contacts`);
-    }
-    setContacts(prev => {
-      const newContact = {
-        id: nanoid(),
-        ...contact,
-      };
-      return [...prev, newContact];
-    });
-  };
-
-  const removeContact = id => {
-    setContacts(prev => {
-      const newContact = prev.filter(item => item.id !== id);
-      return newContact;
-    });
-  };
-
-  const onChangeFilter = e => {
-    const { value } = e.target;
-    setFilter(value);
-  };
+  // const [contacts, setContacts] = useState(() => {
+  //   const contacts = JSON.parse(localStorage.getItem('contacts'));
+  //   return contacts ?? [];
+  // });
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts])
+  
+  // useEffect(() => {
+  //   return () => {
+  //     localStorage.removeItem('contacts');
+  //   };
+  // }, []);
 
   const isDublicate = ({ name, number }) => {
     const result = contacts.find(
       item => item.name === name && item.number === number
     );
     return result;
+  };
+
+  const onAddContact = contact => {
+    if (isDublicate(contact)) {
+      return alert(`${contact.name} - is already in contacts`);
+    }
+    const action = addContact(contact);
+    dispatch(action);
+  };
+
+  const onRemoveContact = id => {
+    const action = removeContact(id);
+    dispatch(action)
+  };
+
+  const onChangeFilter = e => {
+    const { value } = e.target;
+    dispatch(filtredContacts(value))
   };
 
   const getFiltredContacts = () => {
@@ -75,11 +74,11 @@ export default function App() {
   return (
     <Section title={'Task - 2 Contact book'}>
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
+      <ContactForm onSubmit={onAddContact} />
       <h1>Contacts</h1>
       <Filter onChangeFilter={onChangeFilter} filter={filter} />
       {length > 0 ? (
-        <ContactList items={filtredContacts} removeContact={removeContact} />
+        <ContactList items={filtredContacts} removeContact={onRemoveContact} />
       ) : (
         <p>Contact list is empty.</p>
       )}
