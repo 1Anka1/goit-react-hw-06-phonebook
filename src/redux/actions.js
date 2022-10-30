@@ -13,7 +13,7 @@ export const removeContact = payload => {
     payload,
   };
 };
-export const filtredContacts = payload => {
+export const setFilter = payload => {
   return {
     type: SET_FILTER,
     payload,

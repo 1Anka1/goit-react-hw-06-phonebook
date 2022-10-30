@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 //REDUX
 import { getContacts, getFilter } from 'redux/selectors';
-import { addContact, removeContact, filtredContacts} from 'redux/actions';
+import { addContact, removeContact, setFilter} from 'redux/actions';
 
 //COMPONENTS
 import Section from 'components/Section';
@@ -53,7 +53,7 @@ export default function App() {
 
   const onChangeFilter = e => {
     const { value } = e.target;
-    dispatch(filtredContacts(value))
+    dispatch(setFilter(value))
   };
 
   const getFiltredContacts = () => {
