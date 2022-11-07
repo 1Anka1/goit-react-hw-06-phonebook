@@ -18,21 +18,6 @@ export default function App() {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
   
-
-  // const [contacts, setContacts] = useState(() => {
-  //   const contacts = JSON.parse(localStorage.getItem('contacts'));
-  //   return contacts ?? [];
-  // });
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts])
-  
-  // useEffect(() => {
-  //   return () => {
-  //     localStorage.removeItem('contacts');
-  //   };
-  // }, []);
-
   const isDublicate = ({ name, number }) => {
     const result = contacts.find(
       item => item.name === name && item.number === number
@@ -74,10 +59,8 @@ export default function App() {
   const length = contacts.length;
 
   return (
-    <Section title={'Task - 2 Contact book'}>
-      <h1>Phonebook</h1>
+    <Section>
       <ContactForm onSubmit={onAddContact} />
-      <h1>Contacts</h1>
       <Filter onChangeFilter={onChangeFilter} filter={filter} />
       {length > 0 ? (
         <ContactList items={filtredContacts} removeContact={onRemoveContact} />

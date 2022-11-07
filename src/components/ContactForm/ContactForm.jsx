@@ -30,6 +30,9 @@ export default function ContactForm({ onSubmit }) {
 		setState(initialState);
 	}
 	return (
+		<>
+		      <h1>Phonebook</h1>
+
 				<fieldset>
 					<form onSubmit={handelSubmit}>
 						<label>
@@ -63,6 +66,7 @@ export default function ContactForm({ onSubmit }) {
 						</label>
 						<button className={css.addBtn}>Add Contact</button>
 					</form>
-				</fieldset>
+			</fieldset>
+			</>
 	)
 };

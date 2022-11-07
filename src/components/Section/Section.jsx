@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import css from './Section.module.css';
 
-const Section = ({ title, children }) => {
+const Section = ({ children }) => {
+  const title = 'Task - 2 Contact book';
   return (
     <section className={css.section}>
       <div className={css.container}>
